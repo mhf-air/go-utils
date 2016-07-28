@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"encoding/json"
@@ -7,21 +7,17 @@ import (
 	"strings"
 )
 
-func main() {
-
-}
-
 //====================================================================================================
-func check(err error) {
+func Check(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func ln(a ...interface{}) {
+func Ln(a ...interface{}) {
 	for _, v := range a {
 		b, err := json.MarshalIndent(v, "", "  ")
-		check(err)
+		Check(err)
 
 		//ignore the case when \n is in " "
 		lines := strings.Split(string(b), "\n")
@@ -40,4 +36,8 @@ func ln(a ...interface{}) {
 		str := strings.Join(lst, "")
 		fmt.Printf("%s", str)
 	}
+}
+
+//do nothing
+func Nothing(a ...interface{}) {
 }

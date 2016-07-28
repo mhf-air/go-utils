@@ -1,13 +1,9 @@
-package main
+package util
 
 import (
-	"encoding/json"
 	"errors"
-	"fmt"
-	"log"
 	"reflect"
 	"sort"
-	"strings"
 )
 
 type Person struct {
@@ -16,7 +12,7 @@ type Person struct {
 	Salary int64
 }
 
-func main() {
+func mainStucrtValueSorter() {
 	m := []interface{}{
 		Person{
 			Age:    23,
@@ -36,8 +32,8 @@ func main() {
 	}
 
 	r, err := SortStructList(m, "Age", false)
-	check(err)
-	ln(r)
+	Check(err)
+	Ln(r)
 
 }
 
@@ -120,35 +116,4 @@ func (s StructValueSorter) Swap(i, j int) {
 
 func (s StructValueSorter) Less(i, j int) bool {
 	return s.FrontFunc(s.Content[i], s.Content[j])
-}
-
-//====================================================================================================
-func check(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func ln(a ...interface{}) {
-	for _, v := range a {
-		b, err := json.MarshalIndent(v, "", "  ")
-		check(err)
-
-		//ignore the case when \n is in " "
-		lines := strings.Split(string(b), "\n")
-		lst := []string{}
-		for _, l := range lines {
-			pureline := strings.TrimSpace(l)
-			frontBlank := strings.Repeat(" ", len(l)-len(pureline))
-			if strings.HasPrefix(pureline, "]") || strings.HasPrefix(pureline, "}") {
-				continue
-			}
-			if strings.HasSuffix(pureline, ",") {
-				pureline = pureline[:len(pureline)-1]
-			}
-			lst = append(lst, frontBlank+pureline+"\n")
-		}
-		str := strings.Join(lst, "")
-		fmt.Printf("%s", str)
-	}
 }

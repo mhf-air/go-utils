@@ -1,23 +1,9 @@
-package models
+package util
 
 import (
-	"bytes"
-	"code.google.com/p/graphics-go/graphics"
 	"encoding/json"
 	"fmt"
-	"github.com/revel/revel"
-	"image"
-	"image/jpeg"
-	"image/png"
-	"io/ioutil"
-	"kabao/app/models"
-	"labix.org/v2/mgo/bson"
-	"math/rand"
-	"net/http"
-	"os"
-	"strconv"
 	"strings"
-	"time"
 )
 
 func debug(n int, a ...interface{}) {
